@@ -2,7 +2,7 @@ import colors from "yoctocolors";
 const fs = require("fs");
 const dns = require("dns");
 
-const TIMES_TO_TEST = 100; // test each website TIMES_TO_TEST times
+const SAMPLES_PER_HOST = 200; // test each website SAMPLES_PER_HOST times
 
 const HOSTS_TO_CHECK =
   "google.com,root-servers.net,googleapis.com,apple.com,gstatic.com,cloudflare.com,facebook.com,tiktokcdn.com,microsoft.com,amazonaws.com,googlevideo.com,fbcdn.net,whatsapp.net,doubleclick.net,youtube.com,instagram.com,apple-dns.net,icloud.com,akadns.net,amazon.com,googleusercontent.com,akamai.net,tiktokv.com,ntp.org,googlesyndication.com,live.com,cloudfront.net,tiktokrow-cdn.com,cloudflare-dns.com,cdn77.org,gvt2.com,akamaiedge.net,cdninstagram.com,aaplimg.com,tiktokeu-cdn.com,bytefcdn-oversea.com,netflix.com,bing.com,tiktokcdn-eu.com,ytimg.com,spotify.com,gvt1.com,office.com,yahoo.com,gccdn.net,bytefcdn-ttpeu.com,googleadservices.com,samsung.com,dns.google,snapchat.com,google-analytics.com,unity3d.com,twitter.com,fastly.net,amazon-adsystem.com,one.one,app-measurement.com,ttlivecdn.com,app-analytics-services.com,applovin.com,msftncsi.com,criteo.com,googletagmanager.com,azure.com,trafficmanager.net,rocket-cdn.com,ui.com,steamserver.net,roblox.com,msn.com,ggpht.com,wikipedia.org,appsflyersdk.com,baidu.com,linkedin.com,skype.com,rubiconproject.com,windows.net,sentry.io,a2z.com,microsoftonline.com,whatsapp.com,office.net,digicert.com,tiktokcdn-us.com,rbxcdn.com,xiaomi.com,adnxs.com,windows.com,taboola.com,doubleverify.com,3gppnetwork.org,android.com,gmail.com,casalemedia.com,qq.com,sharepoint.com,cdn-apple.com,qlivecdn.com,pangle.io".split(","); // most popular website in the world
@@ -57,7 +57,7 @@ async function testIPAddress(
 
   for (const website of websites) {
     const timings = [];
-    for (let i = 0; i < TIMES_TO_TEST; i++) {
+    for (let i = 0; i < SAMPLES_PER_HOST; i++) {
       const result = await resolveAndTime(website, ip, isIPv6 ? 6 : 4);
       if (result.success) timings.push(result.time);
     }
